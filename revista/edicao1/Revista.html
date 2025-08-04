@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Revista Refugiart - Edição 1</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e0c3fc, #8ec5fc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .revista-container {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .pagina {
+      display: none;
+      animation: fade 0.4s ease;
+    }
+
+    .pagina.ativa {
+      display: block;
+    }
+
+    .botoes-navegacao {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .botoes-navegacao button {
+      background: #9333ea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .botoes-navegacao button:hover {
+      background: #6b21a8;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #9333ea;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="revista-container">
+    
+    <!-- Página 1 -->
+<div class="pagina ativa">
+  <h2>Edição 1 - Capa</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/capa.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+    <!-- Página 2 -->
+   <div class="pagina ativa">
+  <h2>Edição 1 - pagina 2</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina2.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+
+    <!-- Página 3 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  3</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina3.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+        <!-- Página 4 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  4</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina4.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+        <!-- Página 5 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  5</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina5.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+        <!-- Página 5 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  6</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina6.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+        <!-- Página 7 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  7</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina7.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+        <!-- Página 8 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  8</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina8.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+        <!-- Página 9 -->
+    <div class="pagina ativa">
+  <h2>Edição 1 - pagina  9</h2>
+  <p>Bem-vindo à primeira edição da Revista Refugiart!</p>
+  <img src="paginas/img/pagina9.png" alt="Capa da revista" style="width: 100%; border-radius: 10px; margin-top: 10px;" />
+</div>
+    
+    <!-- Navegação -->
+    <div class="botoes-navegacao">
+      <button onclick="voltarPagina()">⬅ Voltar</button>
+      <button onclick="avancarPagina()">Avançar ➡</button>
+    </div>
+  </div>
+
+  <script>
+    const paginas = document.querySelectorAll('.pagina');
+    let paginaAtual = 0;
+
+    function mostrarPagina(index) {
+      paginas.forEach(p => p.classList.remove('ativa'));
+      paginas[index].classList.add('ativa');
+    }
+
+    function avancarPagina() {
+      if (paginaAtual < paginas.length - 1) {
+        paginaAtual++;
+        mostrarPagina(paginaAtual);
+      }
+    }
+
+    function voltarPagina() {
+      if (paginaAtual > 0) {
+        paginaAtual--;
+        mostrarPagina(paginaAtual);
+      }
+    }
+  </script>
+
+</body>
+</html>
