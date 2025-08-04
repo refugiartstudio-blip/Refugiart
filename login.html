@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login - Refugiart Bazar</title>
-  <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="assets/css/login.css" />
   <style>
     body {
       margin: 0;
@@ -222,36 +222,6 @@
       }
     });
   </script>
-
-<!-- seu código HTML do login -->
-
-<script>
-document.querySelector('form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const usuario = document.getElementById('username').value;
-  const senha = document.getElementById('password').value;
-
-  try {
-    const res = await fetch('https://refugiart.onrender.com/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ usuario, senha })
-    });
-
-    if(res.ok){
-      const data = await res.json();
-      localStorage.setItem('access_token', data.access_token);
-      window.location.href = 'index.html'; // redireciona para o feed
-    } else {
-      alert('Usuário ou senha incorretos.');
-    }
-  } catch (err) {
-    alert('Erro ao conectar com o servidor.');
-  }
-});
-</script>
-</body>
-</html>
 
 </body>
 </html>
