@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 from passlib.context import CryptContext
@@ -7,30 +7,26 @@ from datetime import datetime, timedelta
 
 app = FastAPI()
 
-# CORS (em produção ajuste o allow_origins para seu domínio)
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ajustar para ["https://refugiart.onrender.com"] no deploy
+    allow_origins=["*"],  # Ajuste para ["https://refugiart.onrender.com"] em produção
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Mock do "banco de dados" em memória (substituir por banco real depois)
+# Mock do "banco de dados"
 usuarios_db = {}
 
 # Segurança
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-SECRET_KEY = "chave-secreta-refugiart"  # Trocar para algo seguro e ocultar via env var
+SECRET_KEY = "chave-secreta-refugiart"  # Troque por algo mais seguro!
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 1 dia
 
-# Modelos para request/response
+# Modelos
 class UsuarioCadastro(BaseModel):
-    email: EmailStr
-    senha: str
-
-class UsuarioLogin(BaseModel):
     email: EmailStr
     senha: str
 
@@ -38,7 +34,12 @@ class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
 
-# Função para criar token JWT
+# Rota raiz para teste simples
+@app.get("/")
+def root():
+    return {"message": "API Refugiart está online!"}
+
+# Funções auxiliares
 def criar_token(email: str):
     expira = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {"sub": email, "exp": expira}
@@ -46,11 +47,6 @@ def criar_token(email: str):
 
 def verificar_usuario_existente(email: str):
     return email in usuarios_db
-
-# Rota de teste para o root
-@app.get("/")
-def raiz():
-    return {"mensagem": "API Refugiart ativa"}
 
 # Rota de cadastro
 @app.post("/cadastro", response_model=Token)
@@ -62,14 +58,14 @@ def cadastrar(usuario: UsuarioCadastro):
     usuarios_db[usuario.email] = {"senha": senha_criptografada}
 
     token = criar_token(usuario.email)
-    return {"access_token": token, "token_type": "bearer"}
+    return {"access_token": token}
 
-# Rota de login (recebendo JSON, igual seu frontend envia)
+# Rota de login
 @app.post("/login", response_model=Token)
-def login(dados: UsuarioLogin):
-    usuario = usuarios_db.get(dados.email)
-    if not usuario or not pwd_context.verify(dados.senha, usuario["senha"]):
+def login(email: EmailStr = Form(...), senha: str = Form(...)):
+    usuario = usuarios_db.get(email)
+    if not usuario or not pwd_context.verify(senha, usuario["senha"]):
         raise HTTPException(status_code=401, detail="Credenciais inválidas")
 
-    token = criar_token(dados.email)
-    return {"access_token": token, "token_type": "bearer"}
+    token = criar_token(email)
+    return {"access_token": token}
