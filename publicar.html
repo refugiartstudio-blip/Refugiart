@@ -6,6 +6,7 @@
   <title>Publicar Anúncio - Refugiart Bazar</title>
   <link rel="stylesheet" href="assets/css/index.css" />
   <style>
+    /* Banner */
     .banner {
       background: linear-gradient(to right, #9333ea, #ec4899);
       color: white;
@@ -18,6 +19,7 @@
       font-size: 1.6rem;
     }
 
+    /* Barra de categorias */
     .categorias-barra {
       display: flex;
       justify-content: center;
@@ -39,10 +41,13 @@
       transition: background-color 0.3s;
     }
 
-    .categorias-barra button:hover {
+    .categorias-barra button:hover,
+    .categorias-barra button.active {
       background: #e9d5ff;
+      color: #6b21a8;
     }
 
+    /* Container do formulário */
     .form-container {
       max-width: 500px;
       margin: 32px auto;
@@ -101,6 +106,76 @@
     .form-container button:hover {
       background: linear-gradient(to right, #ec4899, #9333ea);
     }
+
+    /* Modal de recarga */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(to right, #9333ea, #ec4899);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background: linear-gradient(to right, #6b21a8, #be185d);
+    }
+
+    /* Navegação inferior */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+      z-index: 50;
+    }
+
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .bottom-nav button:hover {
+      color: #9333ea;
+    }
   </style>
 </head>
 <body>
@@ -131,18 +206,18 @@
   <main>
     <div class="form-container">
       <h2>Publicar Nova Obra</h2>
-      <form action="upload.php" method="POST" enctype="multipart/form-data">
+      <form action="upload.php" method="POST" enctype="multipart/form-data" novalidate>
         <label for="imagem">Imagem da Obra</label>
-        <input type="file" name="imagem" id="imagem" accept="image/*" required />
+        <input type="file" name="imagem" id="imagem" accept="image/*" required aria-required="true" />
 
         <label for="titulo">Título</label>
-        <input type="text" id="titulo" name="titulo" placeholder="Título da obra" required />
+        <input type="text" id="titulo" name="titulo" placeholder="Título da obra" required aria-required="true" />
 
         <label for="descricao">Descrição</label>
         <textarea id="descricao" name="descricao" rows="4" placeholder="Descreva a obra..."></textarea>
 
         <label for="preco">Preço (RB)</label>
-        <input type="number" id="preco" name="preco" placeholder="0.00" step="0.01" required />
+        <input type="number" id="preco" name="preco" placeholder="0.00" step="0.01" min="0" required aria-required="true" />
 
         <button type="submit">Publicar</button>
       </form>
@@ -154,9 +229,9 @@
     <div class="modal-content" onclick="event.stopPropagation()">
       <h3>Recarga de RB</h3>
       <p>Escolha um valor:</p>
-      <button onclick="recarregar(5)">+5 RB</button>
-      <button onclick="recarregar(10)">+10 RB</button>
-      <button onclick="recarregar(20)">+20 RB</button>
+      <button type="button" onclick="recarregar(5)">+5 RB</button>
+      <button type="button" onclick="recarregar(10)">+10 RB</button>
+      <button type="button" onclick="recarregar(20)">+20 RB</button>
     </div>
   </div>
 
@@ -172,9 +247,10 @@
   <script>
     function recarregar(valor) {
       const saldoEl = document.getElementById('saldo');
-      let atual = parseFloat(saldoEl.textContent);
+      let atual = parseFloat(saldoEl.textContent) || 0;
       saldoEl.textContent = (atual + valor).toFixed(2);
       document.getElementById('modal-recarga').classList.remove('active');
+      alert(`Saldo recarregado em +${valor} RB!`);
     }
   </script>
 </body>
