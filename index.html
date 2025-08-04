@@ -74,6 +74,16 @@
 </head>
 <body>
 
+  <!-- Script para verificar token e redirecionar se não logado -->
+  <script>
+    window.onload = function() {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+
   <!-- Cabeçalho -->
   <header>
     <div class="logo">Refugiart</div>
