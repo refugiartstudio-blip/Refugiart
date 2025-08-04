@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil - Refugiart Bazar</title>
+  <!-- link direto index -->
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <style>
+    .banner {
+      background: linear-gradient(to right, #9333ea, #ec4899);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .banner h2 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .categorias-barra {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .categorias-barra button {
+      padding: 8px 14px;
+      border: none;
+      background: #f3e8ff;
+      color: #9333ea;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .perfil-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .perfil-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    .estatisticas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .estatisticas div {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .estatisticas span {
+      display: block;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #9333ea;
+    }
+
+    .botoes-acao {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+
+    .botoes-acao button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #9333ea;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .meus-posts {
+      padding: 16px;
+    }
+
+    .post {
+      background: white;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .post img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .post-content {
+      padding: 12px;
+    }
+
+    .post-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .post-status {
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="logo">Refugiart Bazar</div>
+    <div class="search-bar">
+    <span class="icon">🔎</span>
+    <input type="text" placeholder="Buscar..." />
+  </div>
+  <div class="saldo-container">
+    <div class="saldo-container">
+      <span class="saldo">Saldo: RB <span id="saldo">75.00</span></span>
+      <button class="btn-rb" onclick="document.getElementById('modal-recarga').classList.add('active')">+RB</button>
+    </div>
+  </header>
+
+ 
+    
+<!-- Banner com animação -->
+<div class="banner">
+  <h2 id="banner-text">🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong></h2>
+</div>
+    
+  <!-- Barra de categorias -->
+  <div class="categorias-barra">
+    <button class="active">Todas as Categorias</button>
+    <button>Arte</button>
+    <button>Artesanato</button>
+    <button>Revista</button>
+  </div>
+
+  <!-- Perfil -->
+<main class="feed">
+  <div style="text-align: center; margin-top: 10px;">
+    
+   <!-- Foto de perfil clicável para upload -->
+<form action="php/upload.php" method="POST" enctype="multipart/form-data">
+  <label for="fotoInput">
+    <img src="uploads/usuarios/usuario1/Henrique.png" alt="Foto de perfil" 
+         style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid white; cursor: pointer;" />
+  </label>
+
+  <input type="file" id="fotoInput" name="foto" accept="image/*" 
+         style="display: none;" onchange="this.form.submit()" />
+</form>
+    
+    <h2 style="margin: 10px 0 4px;">Henrique Sousa</h2>
+   <div id="bio-container" style="margin: 0; color: #333; display: inline-flex; align-items: center; gap: 8px;">
+  <span id="bio-text">Artista visual apaixonado por Amazônia 🌿</span>
+  <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
+</div>
+    <!-- Estatísticas -->
+    <div class="estatisticas">
+      <div><span>12</span>Publicações</div>
+      <div><span>7</span>Vendidos</div>
+      <div><span>159</span>Seguidores</div>
+      <div><span>210</span>Curtidas</div>
+    </div>
+
+    <!-- Botões -->
+    <div class="botoes-acao">
+      <button onclick="alert('Minha loja em breve')">Minha Loja</button>
+      <button onclick="window.location.href='publicar.html'">Novo Anúncio</button>
+      <button onclick="window.location.href='logout.php'">Sair</button>
+    </div>
+  </main>
+
+  <!-- Posts -->
+  <div class="meus-posts">
+    <div class="post">
+      <img src="assets/images/art-example.jpg" alt="Minha arte" />
+      <div class="post-content">
+        <div class="post-title">Pintura Amazônica</div>
+        <div class="post-status">Status: <strong>Vendido</strong></div>
+      </div>
+    </div>
+
+    <div class="post">
+      <img src="assets/images/art-example.jpg" alt="Minha arte" />
+      <div class="post-content">
+        <div class="post-title">Retrato com Carvão</div>
+        <div class="post-status">Status: <strong>À venda</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de recarga -->
+  <div id="modal-recarga" class="modal" onclick="this.classList.remove('active')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h3>Recarga de RB</h3>
+      <p>Escolha o valor para recarregar:</p>
+      <button onclick="alert('Recarregado 5 RBs'); document.getElementById('modal-recarga').classList.remove('active')">+5 RB</button>
+      <button onclick="alert('Recarregado 10 RBs'); document.getElementById('modal-recarga').classList.remove('active')">+10 RB</button>
+      <button onclick="alert('Recarregado 20 RBs'); document.getElementById('modal-recarga').classList.remove('active')">+20 RB</button>
+    </div>
+  </div>
+
+  <!-- Navegação inferior -->
+  <div class="bottom-nav">
+    <button onclick="window.location.href='index.html'">🏠 Feed</button>
+    <button onclick="alert('Buscar em construção')">🔍 Buscar</button>
+    <button onclick="window.location.href='publicar.html'">➕ Publicar</button>
+    <button onclick="window.location.href='carteira.html'">💳 Carteira</button>
+    <button onclick="window.location.href='perfil.html'">👤 Perfil</button>
+  </div>
+
+   <!-- edicao de bio  -->
+  
+  <script>
+  document.getElementById("edit-bio").addEventListener("click", function () {
+    const bioContainer = document.getElementById("bio-container");
+    const currentBio = document.getElementById("bio-text").textContent;
+
+    // Substituir texto por input
+    bioContainer.innerHTML = `
+      <input type="text" id="bio-input" value="${currentBio}" style="padding: 4px 8px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+      <button id="save-bio" style="margin-left: 8px; background: #9333ea; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer;">Salvar</button>
+    `;
+
+    // Adicionar evento para salvar
+    document.getElementById("save-bio").addEventListener("click", function () {
+      const newBio = document.getElementById("bio-input").value;
+      bioContainer.innerHTML = `
+        <span id="bio-text">${newBio}</span>
+        <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
+      `;
+      // Reanexar o evento de clique ao novo botão
+      document.getElementById("edit-bio").addEventListener("click", arguments.callee);
+    });
+  });
+</script>
+  
+    <!-- publicidade - animacao -->
+  
+  <script>
+  const mensagens = [
+    '🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong>',
+    '🖌️ Patrocine um artista hoje! <strong> </strong>',
+    '🌍 Junte-se à rede cultural da Transamazônica! <strong>Refugiart</strong>',
+    '💡 Descubra talentos regionais agora mesmo!'
+  ];
+
+  let index = 0;
+  const bannerText = document.getElementById("banner-text");
+
+  setInterval(() => {
+    index = (index + 1) % mensagens.length;
+    bannerText.style.opacity = 0;
+
+    setTimeout(() => {
+      bannerText.innerHTML = mensagens[index];
+      bannerText.style.opacity = 1;
+    }, 500);
+  }, 3000);
+</script>
+  
+</body>
+</html>
