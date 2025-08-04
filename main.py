@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Form
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 from passlib.context import CryptContext
@@ -10,18 +10,18 @@ app = FastAPI()
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Em produção, troque por ["https://refugiartstudio-blip.github.io"]
+    allow_origins=["*"],  # Ajuste para ["https://refugiart.onrender.com"] em produção
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# "Banco de dados" temporário em memória
+# Mock do "banco de dados"
 usuarios_db = {}
 
 # Segurança
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-SECRET_KEY = "chave-secreta-refugiart"
+SECRET_KEY = "chave-secreta-refugiart"  # Troque por algo mais seguro!
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 1 dia
 
@@ -30,24 +30,22 @@ class UsuarioCadastro(BaseModel):
     email: EmailStr
     senha: str
 
+class UsuarioLogin(BaseModel):
+    email: EmailStr
+    senha: str
+
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
 
-# Função para criar token JWT
+# Funções auxiliares
 def criar_token(email: str):
     expira = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {"sub": email, "exp": expira}
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
-# Verifica se o usuário já existe
 def verificar_usuario_existente(email: str):
     return email in usuarios_db
-
-# Rota de boas-vindas
-@app.get("/")
-def home():
-    return {"message": "Backend Refugiart ativo!"}
 
 # Rota de cadastro
 @app.post("/cadastro", response_model=Token)
@@ -61,12 +59,17 @@ def cadastrar(usuario: UsuarioCadastro):
     token = criar_token(usuario.email)
     return {"access_token": token}
 
-# Rota de login
+# Rota de login - agora recebe JSON com UsuarioLogin
 @app.post("/login", response_model=Token)
-def login(email: EmailStr = Form(...), senha: str = Form(...)):
-    usuario = usuarios_db.get(email)
-    if not usuario or not pwd_context.verify(senha, usuario["senha"]):
+def login(usuario: UsuarioLogin):
+    usuario_db = usuarios_db.get(usuario.email)
+    if not usuario_db or not pwd_context.verify(usuario.senha, usuario_db["senha"]):
         raise HTTPException(status_code=401, detail="Credenciais inválidas")
 
-    token = criar_token(email)
+    token = criar_token(usuario.email)
     return {"access_token": token}
+
+# Rota raiz para teste simples
+@app.get("/")
+def read_root():
+    return {"message": "Servidor FastAPI ativo com sucesso!"}
