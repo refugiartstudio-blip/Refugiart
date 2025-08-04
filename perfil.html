@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Perfil - Refugiart Cultural </title>
-  <!-- link direto index -->
+  <title>Perfil - Refugiart Cultural</title>
+  <!-- Link para CSS principal -->
   <link rel="stylesheet" href="assets/css/index.css" />
   <style>
+    /* Estilos específicos do perfil */
+
     .banner {
       background: linear-gradient(to right, #9333ea, #ec4899);
       color: white;
@@ -17,6 +19,7 @@
     .banner h2 {
       margin: 0;
       font-size: 1.6rem;
+      transition: opacity 0.5s ease;
     }
 
     .categorias-barra {
@@ -38,6 +41,11 @@
       cursor: pointer;
     }
 
+    .categorias-barra button.active {
+      background: #9333ea;
+      color: white;
+    }
+
     .perfil-container {
       text-align: center;
       padding: 20px;
@@ -49,6 +57,7 @@
       border-radius: 50%;
       border: 3px solid white;
       object-fit: cover;
+      cursor: pointer;
     }
 
     .estatisticas {
@@ -87,6 +96,11 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .botoes-acao button:hover {
+      background: #6b21a8;
     }
 
     .meus-posts {
@@ -120,103 +134,245 @@
     .post-status {
       font-size: 0.95rem;
     }
+
+    /* Modal Revista */
+    .modal-revista {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-revista.active {
+      display: flex;
+    }
+
+    .modal-revista .modal-conteudo {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .modal-revista h3 {
+      margin-bottom: 10px;
+      color: #9333ea;
+    }
+
+    .modal-revista .edicoes button {
+      background: #f3e8ff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      margin: 8px;
+      font-weight: bold;
+      color: #9333ea;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .modal-revista .edicoes button:hover {
+      background: #9333ea;
+      color: white;
+    }
+
+    .modal-revista button.fechar {
+      margin-top: 20px;
+      background: #ccc;
+      color: #333;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .modal-revista button.fechar:hover {
+      background: #999;
+    }
+
+    /* Modal Recarga */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(to right, #9333ea, #ec4899);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background: linear-gradient(to right, #6b21a8, #be185d);
+    }
+
+    /* Navegação inferior */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+      z-index: 50;
+    }
+
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .bottom-nav button:hover {
+      color: #9333ea;
+    }
   </style>
 </head>
 <body>
 
   <!-- Cabeçalho -->
   <header>
-    <div class="logo">Refugiart Cultural </div>
+    <div class="logo">Refugiart Cultural</div>
     <div class="search-bar">
-    <span class="icon">🔎</span>
-    <input type="text" placeholder="Buscar..." />
-  </div>
-  <div class="saldo-container">
+      <span class="icon">🔎</span>
+      <input type="text" placeholder="Buscar..." />
+    </div>
     <div class="saldo-container">
       <span class="saldo">Saldo: RB <span id="saldo">75.00</span></span>
       <button class="btn-rb" onclick="document.getElementById('modal-recarga').classList.add('active')">+RB</button>
     </div>
   </header>
 
- 
-    
-<!-- Banner com animação -->
-<div class="banner">
-  <h2 id="banner-text">🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong></h2>
-</div>
-    
+  <!-- Banner com animação -->
+  <div class="banner">
+    <h2 id="banner-text">🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong></h2>
+  </div>
+
   <!-- Barra de categorias -->
   <div class="categorias-barra">
     <button class="active">Todas as Categorias</button>
     <button>Arte</button>
     <button>Artesanato</button>
-     <button class="categoria-btn" onclick="document.getElementById('modal-revista').classList.add('active')">Revista</button>
- 
+    <button class="categoria-btn" onclick="document.getElementById('modal-revista').classList.add('active')">Revista</button>
   </div>
 
   <!-- Perfil -->
-<main class="feed">
-  <div style="text-align: center; margin-top: 10px;">
-    
-   <!-- Foto de perfil clicável para upload -->
-<form action="php/upload.php" method="POST" enctype="multipart/form-data">
-  <label for="fotoInput">
-    <img src="uploads/usuarios/usuario1/Henrique.png" alt="Foto de perfil" 
-         style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid white; cursor: pointer;" />
-  </label>
+  <main class="feed">
+    <div class="perfil-container">
+      <!-- Formulário para upload de foto de perfil -->
+      <form action="php/upload.php" method="POST" enctype="multipart/form-data">
+        <label for="fotoInput">
+          <img src="uploads/usuarios/usuario1/Henrique.png" alt="Foto de perfil" />
+        </label>
+        <input type="file" id="fotoInput" name="foto" accept="image/*" style="display: none;" onchange="this.form.submit()" />
+      </form>
+      
+      <h2>Henrique Sousa</h2>
 
-  <input type="file" id="fotoInput" name="foto" accept="image/*" 
-         style="display: none;" onchange="this.form.submit()" />
-</form>
-    
-    <h2 style="margin: 10px 0 4px;">Henrique Sousa</h2>
-   <div id="bio-container" style="margin: 0; color: #333; display: inline-flex; align-items: center; gap: 8px;">
-  <span id="bio-text">Artista visual apaixonado por Amazônia 🌿</span>
-  <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
-</div>
-    <!-- Estatísticas -->
-    <div class="estatisticas">
-      <div><span>10</span>Vitrine</div>
-      <div><span>7</span>Vendidos</div>
-      <div><span>8000+</span>Seguidores</div>
-      <div><span>210</span>Curtidas</div>
+      <div id="bio-container" style="margin-top: 8px; color: #333; display: inline-flex; align-items: center; gap: 8px;">
+        <span id="bio-text">Artista visual apaixonado por Amazônia 🌿</span>
+        <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
+      </div>
+
+      <!-- Estatísticas -->
+      <div class="estatisticas">
+        <div><span>10</span>Vitrine</div>
+        <div><span>7</span>Vendidos</div>
+        <div><span>8000+</span>Seguidores</div>
+        <div><span>210</span>Curtidas</div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="botoes-acao">
+        <button onclick="alert('Minha loja em breve')">Minha Loja</button>
+        <button onclick="window.location.href='publicar.html'">Novo Anúncio</button>
+        <button onclick="window.location.href='cadastro.html'">Sair</button>
+      </div>
     </div>
 
-    <!-- Botões -->
-    <div class="botoes-acao">
-      <button onclick="alert('Minha loja em breve')">Minha Loja</button>
-      <button onclick="window.location.href='publicar.html'">Novo Anúncio</button>
-      <button onclick="window.location.href='cadastro.html'">Sair</button>
+    <!-- Posts do usuário -->
+    <div class="meus-posts">
+      <div class="post">
+        <img src="assets/images/art-example.jpg" alt="Minha arte" />
+        <div class="post-content">
+          <div class="post-title">Pintura Amazônica</div>
+          <div class="post-status">Status: <strong>Vendido</strong></div>
+        </div>
+      </div>
+
+      <div class="post">
+        <img src="assets/images/art-example.jpg" alt="Minha arte" />
+        <div class="post-content">
+          <div class="post-title">Retrato com Carvão</div>
+          <div class="post-status">Status: <strong>À venda</strong></div>
+        </div>
+      </div>
     </div>
   </main>
-
-  <!-- Posts -->
-  <div class="meus-posts">
-    <div class="post">
-      <img src="assets/images/art-example.jpg" alt="Minha arte" />
-      <div class="post-content">
-        <div class="post-title">Pintura Amazônica</div>
-        <div class="post-status">Status: <strong>Vendido</strong></div>
-      </div>
-    </div>
-
-    <div class="post">
-      <img src="assets/images/art-example.jpg" alt="Minha arte" />
-      <div class="post-content">
-        <div class="post-title">Retrato com Carvão</div>
-        <div class="post-status">Status: <strong>À venda</strong></div>
-      </div>
-    </div>
-  </div>
 
   <!-- Modal de recarga -->
   <div id="modal-recarga" class="modal" onclick="this.classList.remove('active')">
     <div class="modal-content" onclick="event.stopPropagation()">
       <h3>Recarga de RB</h3>
       <p>Escolha o valor para recarregar:</p>
-      <button onclick="alert('Recarregado 5 RBs'); document.getElementById('modal-recarga').classList.remove('active')">+5 RB</button>
-      <button onclick="alert('Recarregado 10 RBs'); document.getElementById('modal-recarga').classList.remove('active')">+10 RB</button>
-      <button onclick="alert('Recarregado 20 RBs'); document.getElementById('modal-recarga').classList.remove('active')">+20 RB</button>
+      <button onclick="recarregar(5)">+5 RB</button>
+      <button onclick="recarregar(10)">+10 RB</button>
+      <button onclick="recarregar(20)">+20 RB</button>
+    </div>
+  </div>
+
+  <!-- Modal de Revista -->
+  <div id="modal-revista" class="modal-revista" onclick="this.classList.remove('active')">
+    <div class="modal-conteudo" onclick="event.stopPropagation()">
+      <h3>📖 Edições da Revista Refugiart</h3>
+      <p>Escolha uma edição para visualizar:</p>
+      <div class="edicoes">
+        <button onclick="window.location.href='revista1.html'">Edição 1</button>
+        <button onclick="alert('Edição 2 em breve')">Edição 2</button>
+        <button onclick="alert('Edição 3 em breve')">Edição 3</button>
+      </div>
+      <button class="fechar" onclick="document.getElementById('modal-revista').classList.remove('active')">Fechar</button>
     </div>
   </div>
 
@@ -229,69 +385,59 @@
     <button onclick="window.location.href='perfil.html'">👤 Perfil</button>
   </div>
 
-   <!-- edicao de bio  -->
-  
+  <!-- Scripts -->
   <script>
-  document.getElementById("edit-bio").addEventListener("click", function () {
-    const bioContainer = document.getElementById("bio-container");
-    const currentBio = document.getElementById("bio-text").textContent;
+    // Editar bio
+    document.getElementById("edit-bio").addEventListener("click", function () {
+      const bioContainer = document.getElementById("bio-container");
+      const currentBio = document.getElementById("bio-text").textContent;
 
-    // Substituir texto por input
-    bioContainer.innerHTML = `
-      <input type="text" id="bio-input" value="${currentBio}" style="padding: 4px 8px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
-      <button id="save-bio" style="margin-left: 8px; background: #9333ea; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer;">Salvar</button>
-    `;
-
-    // Adicionar evento para salvar
-    document.getElementById("save-bio").addEventListener("click", function () {
-      const newBio = document.getElementById("bio-input").value;
       bioContainer.innerHTML = `
-        <span id="bio-text">${newBio}</span>
-        <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
+        <input type="text" id="bio-input" value="${currentBio}" style="padding: 4px 8px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+        <button id="save-bio" style="margin-left: 8px; background: #9333ea; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer;">Salvar</button>
       `;
-      // Reanexar o evento de clique ao novo botão
-      document.getElementById("edit-bio").addEventListener("click", arguments.callee);
+
+      document.getElementById("save-bio").addEventListener("click", function () {
+        const newBio = document.getElementById("bio-input").value;
+        bioContainer.innerHTML = `
+          <span id="bio-text">${newBio}</span>
+          <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
+        `;
+        // Reanexa evento
+        document.getElementById("edit-bio").addEventListener("click", arguments.callee);
+      });
     });
-  });
-</script>
-  
-    <!-- publicidade - animacao -->
-  
-  <script>
-  const mensagens = [
-    '🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong>',
-    '🖌️ Patrocine um artista hoje! <strong> </strong>',
-    '🌍 Junte-se à rede cultural da Transamazônica! <strong>Refugiart</strong>',
-    '💡 Descubra talentos regionais agora mesmo!'
-  ];
 
-  let index = 0;
-  const bannerText = document.getElementById("banner-text");
+    // Animação banner
+    const mensagens = [
+      '🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong>',
+      '🖌️ Patrocine um artista hoje!',
+      '🌍 Junte-se à rede cultural da Transamazônica! <strong>Refugiart</strong>',
+      '💡 Descubra talentos regionais agora mesmo!'
+    ];
 
-  setInterval(() => {
-    index = (index + 1) % mensagens.length;
-    bannerText.style.opacity = 0;
+    let index = 0;
+    const bannerText = document.getElementById("banner-text");
 
-    setTimeout(() => {
-      bannerText.innerHTML = mensagens[index];
-      bannerText.style.opacity = 1;
-    }, 500);
-  }, 3000);
-</script>
-  
-  <!-- Modal de Revista -->
-<div id="modal-revista" class="modal-revista" onclick="this.classList.remove('active')">
-  <div class="modal-conteudo" onclick="event.stopPropagation()">
-    <h3 style="margin-bottom: 10px;">📖 Edições da Revista Refugiart</h3>
-    <p>Escolha uma edição para visualizar:</p>
-    <div class="edicoes">
-      <button onclick="window.location.href='revista1.html'">Edição 1</button>
-      <button onclick="alert('Edição 2 em breve')">Edição 2</button>
-      <button onclick="alert('Edição 3 em breve')">Edição 3</button>
-    </div>
-    <button onclick="document.getElementById('modal-revista').classList.remove('active')" style="margin-top: 20px; background: #ccc; color: #333;">Fechar</button>
-  </div>
-</div>
-  
+    setInterval(() => {
+      index = (index + 1) % mensagens.length;
+      bannerText.style.opacity = 0;
+
+      setTimeout(() => {
+        bannerText.innerHTML = mensagens[index];
+        bannerText.style.opacity = 1;
+      }, 500);
+    }, 3000);
+
+    // Função recarga saldo
+    function recarregar(valor) {
+      const saldoEl = document.getElementById('saldo');
+      let atual = parseFloat(saldoEl.textContent);
+      saldoEl.textContent = (atual + valor).toFixed(2);
+      document.getElementById('modal-recarga').classList.remove('active');
+      alert(`Recarregado ${valor} RBs com sucesso!`);
+    }
+  </script>
+
 </body>
 </html>
