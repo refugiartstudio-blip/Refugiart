@@ -54,3 +54,15 @@ def cadastrar(usuario: UsuarioCadastro):
 
     token = criar_token(usuario.email)
     return {"access_token": token}
+
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import Form
+
+@app.post("/login", response_model=Token)
+def login(email: EmailStr = Form(...), senha: str = Form(...)):
+    usuario = usuarios_db.get(email)
+    if not usuario or not pwd_context.verify(senha, usuario["senha"]):
+        raise HTTPException(status_code=401, detail="Credenciais inválidas")
+
+    token = criar_token(email)
+    return {"access_token": token}
