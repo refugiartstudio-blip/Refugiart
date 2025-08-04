@@ -1,0 +1,142 @@
+/* Fundo e layout geral */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #e0c3fc, #8ec5fc);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  background: white;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #9333ea, #ec4899);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Parte direita do header */
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+
+/* Barra de pesquisa */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f3e8ff;
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+.search-bar .icon {
+  margin-right: 6px;
+  font-size: 1rem;
+  color: #9333ea;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Saldo + botão */
+.saldo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.saldo {
+  font-weight: bold;
+  color: #9333ea;
+}
+
+.btn-rb {
+  background: #9333ea;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Conteúdo principal */
+main {
+  padding: 16px;
+  flex: 1;
+}
+
+/* Botões padrão */
+.btn-padrao {
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #9333ea;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-padrao:hover {
+  background: #7c27b9;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #9333ea, #ec4899);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

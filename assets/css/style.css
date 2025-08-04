@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f5f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #6a00ff;
+}
+
+.logo span {
+  color: #ff3399;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.search input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin-left: 2rem;
+}
+
+.wallet {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 2rem;
+}
+
+.add-rb {
+  background: linear-gradient(90deg, #9b00ff, #ff3399);
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-circle {
+  background: #eee;
+  color: #333;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.hero {
+  background: linear-gradient(90deg, #9b00ff, #ff3399);
+  color: white;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.hero p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stats div {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.stats span {
+  font-size: 0.9rem;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem;
+  justify-content: center;
+  background: white;
+}
+
+.categories button {
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: #eee;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.categories .active {
+  background: linear-gradient(90deg, #9b00ff, #ff3399);
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.empty p {
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.publish-btn {
+  padding: 0.7rem 1.5rem;
+  background: linear-gradient(90deg, #9b00ff, #ff3399);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.btn-padrao {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg, #9b00ff, #ff3399);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-padrao:hover {
+  background: linear-gradient(90deg, #7c00cc, #cc287a);
+}
+
+<!-- Banner com animação -->
+<div class="banner">
+  <h2 id="banner-text">🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong></h2>
+</div>
