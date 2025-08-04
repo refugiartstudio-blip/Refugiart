@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refugiart - Feed</title>
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <style>
+    /* estilos existentes omitidos para brevidade (mantêm os seus) */
+  </style>
+</head>
+<body>
+  <script>
+    window.onload = async function () {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }await carregarSaldo(token);
+  await carregarPosts(token);
+}
+
+function logout() {
+  localStorage.removeItem('access_token');
+  window.location.href = 'login.html';
+}
+
+async function carregarSaldo(token) {
+  try {
+    const res = await fetch('https://refugiart.onrender.com/saldo', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const data = await res.json();
+    document.getElementById('saldo').textContent = data.saldo.toFixed(2);
+  } catch (err) {
+    console.error('Erro ao buscar saldo:', err);
+  }
+}
+
+async function carregarPosts(token) {
+  try {
+    const res = await fetch('https://refugiart.onrender.com/posts', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const posts = await res.json();
+    const container = document.getElementById('feed-container');
+    container.innerHTML = '';
+    posts.forEach(post => {
+      const postHTML = `
+        <div class="post">
+          <div class="post-header">
+            <img src="${post.autor_avatar}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+            <a href="perfil.html?user=${post.autor_id}"><strong>${post.autor_nome}</strong></a>
+          </div>
+          <img src="${post.imagem}" alt="Arte">
+          <div class="post-content">
+            <div class="post-title">${post.titulo}</div>
+            <div class="post-status">Status: <strong>${post.status}</strong></div>
+          </div>
+          <div class="post-actions">
+            <button onclick="curtir(${post.id})">❤️</button>
+            <button onclick="comentar(${post.id})">💬</button>
+            <button onclick="compartilhar(${post.id})">✈️</button>
+            <button class="btn-comprar" onclick="comprar(${post.id})">🛒 Comprar</button>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', postHTML);
+    });
+  } catch (err) {
+    console.error('Erro ao buscar posts:', err);
+  }
+}
+
+function curtir(postId) {
+  alert('Função curtir ainda não implementada.');
+}
+
+function comentar(postId) {
+  alert('Função comentar ainda não implementada.');
+}
+
+function compartilhar(postId) {
+  alert('Função compartilhar ainda não implementada.');
+}
+
+function comprar(postId) {
+  alert('Função comprar ainda não implementada.');
+}
+
+  </script>  <header>
+    <!-- seu cabeçalho com saldo e botão sair -->
+  </header>  <main>
+    <div class="banner-destaque">
+      <h2>Bem-vindo ao Refugiart</h2>
+      <p>Encontre arte única criada por artistas da Amazônia</p>
+    </div><div class="barra-categorias">
+  <button class="categoria-btn active">Todas</button>
+  <button class="categoria-btn">Arte</button>
+  <button class="categoria-btn">Artesanato</button>
+  <button class="categoria-btn" onclick="document.getElementById('modal-revista').classList.add('active')">Revista</button>
+</div>
+
+<div id="feed-container"></div>
+
+  </main>  <!-- modal de recarga -->  <!-- modal de revista -->  <!-- navegação inferior --></body>
+</html>

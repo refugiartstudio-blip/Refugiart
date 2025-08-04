@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carteira - Refugiart Bazar</title>
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/carteira.css" />
+  <style>
+    /* --- ESTILO LOCAL --- */
+
+    .banner {
+      background: linear-gradient(to right, #9333ea, #ec4899);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .banner h2 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .categorias-barra {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .categorias-barra button {
+      padding: 8px 14px;
+      border: none;
+      background: #f3e8ff;
+      color: #9333ea;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .wallet-section {
+      max-width: 500px;
+      margin: 30px auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .wallet-section h3 {
+      margin-bottom: 16px;
+      color: #9333ea;
+    }
+
+    .saldo-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .historico {
+      margin-top: 20px;
+    }
+
+    .historico h4 {
+      margin-bottom: 10px;
+    }
+
+    .transacao {
+      border-bottom: 1px solid #eee;
+      padding: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+    }
+
+    .transacao span:first-child {
+      color: #555;
+    }
+
+    .transacao span:last-child {
+      font-weight: bold;
+    }
+
+    .transacao.credito {
+      color: #10b981;
+    }
+
+    .transacao.debito {
+      color: #ef4444;
+    }
+
+    /* --- MODAL PIX --- */
+
+    .modal-pix {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-pix.active {
+      display: flex;
+    }
+
+    .modal-pix .pix-content {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-pix .pix-content h3 {
+      margin-bottom: 10px;
+      color: #9333ea;
+    }
+
+    .modal-pix .pix-content p {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .modal-pix .qr-pix {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .modal-pix .pix-content button {
+      background: #9333ea;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .modal-pix .pix-content button:hover {
+      background: #6b21a8;
+    }
+
+    /* --- BOTÕES PADRÃO --- */
+    .btn-padrao {
+      background: #9333ea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-padrao:hover {
+      background: #6b21a8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Refugiart Bazar</div>
+      <div class="top-right">
+        <div class="search-bar">
+          <span class="icon">🔎</span>
+          <input type="text" placeholder="Buscar..." />
+        </div>
+        <div class="saldo-container">
+          <span class="saldo">Saldo: RB <span id="saldo">75.00</span></span>
+          <button class="btn-rb" onclick="document.getElementById('modal-pix').classList.add('active')">+RB</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <h2>Sua Carteira Digital</h2>
+  </div>
+
+  <!-- Categorias -->
+  <div class="categorias-barra">
+    <button class="active">Todas as Categorias</button>
+    <button>Arte</button>
+    <button>Artesanato</button>
+    <button>Revista</button>
+  </div>
+
+  <!-- Ações -->
+  <div style="display: flex; justify-content: space-around; margin: 20px 0;">
+    <button class="btn-padrao" onclick="alert('Ver extrato')">Ver Extrato</button>
+    <button class="btn-padrao" onclick="alert('Sacar RBs')">Sacar</button>
+    <button class="btn-padrao" onclick="document.getElementById('modal-pix').classList.add('active')">Recarregar</button>
+  </div>
+
+  <!-- Conteúdo da carteira -->
+  <main>
+    <div class="wallet-section">
+      <h3>Resumo Financeiro</h3>
+      <div class="saldo-info">
+        <span>Saldo Disponível:</span>
+        <span>RB 75.00</span>
+      </div>
+      <div class="saldo-info">
+        <span>Saldo Bloqueado:</span>
+        <span>RB 30.00</span>
+      </div>
+
+      <div class="historico">
+        <h4>Histórico de Transações</h4>
+        <div class="transacao credito">
+          <span>Venda de obra</span>
+          <span>+RB 50.00</span>
+        </div>
+        <div class="transacao debito">
+          <span>Compra de arte</span>
+          <span>-RB 30.00</span>
+        </div>
+        <div class="transacao credito">
+          <span>Recarga manual</span>
+          <span>+RB 10.00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Pix (Recarregar) -->
+  <div id="modal-pix" class="modal-pix" onclick="this.classList.remove('active')">
+    <div class="pix-content" onclick="event.stopPropagation()">
+      <h3>Recarregar com Pix</h3>
+      <p>Escaneie o QR Code abaixo com seu aplicativo bancário:</p>
+      <img src="assets/images/pix.png" alt="QR Code Pix" class="qr-pix" />
+      <button onclick="document.getElementById('modal-pix').classList.remove('active')">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Navegação inferior -->
+  <div class="bottom-nav">
+    <button onclick="window.location.href='index.html'">🏠 Feed</button>
+    <button onclick="alert('Buscar em construção')">🔍 Buscar</button>
+    <button onclick="window.location.href='publicar.html'">➕ Publicar</button>
+    <button onclick="window.location.href='carteira.html'">💳 Carteira</button>
+    <button onclick="window.location.href='perfil.html'">👤 Perfil</button>
+  </div>
+
+  <!-- Script de recarga (caso use valores fixos no futuro) -->
+  <script>
+    function recarregar(valor) {
+      const saldoEl = document.getElementById('saldo');
+      let atual = parseFloat(saldoEl.textContent);
+      saldoEl.textContent = (atual + valor).toFixed(2);
+    }
+  </script>
+</body>
+</html>
