@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil - Refugiart Bazar</title>
+  <!-- link direto index -->
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <style>
+    .banner {
+      background: linear-gradient(to right, #9333ea, #ec4899);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .banner h2 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .categorias-barra {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .categorias-barra button {
+      padding: 8px 14px;
+      border: none;
+      background: #f3e8ff;
+      color: #9333ea;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .perfil-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .perfil-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    .estatisticas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .estatisticas div {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .estatisticas span {
+      display: block;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #9333ea;
+    }
+
+    .botoes-acao {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+
+    .botoes-acao button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #9333ea;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .meus-posts {
+      padding: 16px;
+    }
+
+    .post {
+      background: white;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .post img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .post-content {
+      padding: 12px;
+    }
+
+    .post-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .post-status {
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="banner"> <h2>Heloisa Araujo</h2> 
+      <!-- Visitante: imagem sem interatividade -->
+<img src="assets/images/fotodeperfil.png" alt="fotodeperfil"
+     style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid white;" />
+    </div>
+    
+  </header>
+
+ 
+    
+<!-- Banner com animação -->
+<div class="banner">
+  <h2 id="banner-text">🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong></h2>
+</div>
+    
+  <!-- Barra de categorias -->
+  <div class="categorias-barra">
+    <button class="active">Todas as Categorias</button>
+    <button>Arte</button>
+    <button>Artesanato</button>
+    <button>Revista</button>
+  </div>
+
+  <!-- Perfil -->
+<main class="feed">
+  <div style="text-align: center; margin-top: 10px;">   
+   
+    <!-- informaçoes -->
+  
+<p>Artista plástica de Belém (PA), focada em obras infantis e cenas lúdicas.</p>
+    
+    <!-- Estatísticas -->
+    <div class="estatisticas">
+      <div><span>30</span>Vitrine</div>
+      <div><span>15</span>Vendidos</div>
+      <div><span>800</span>Seguidores</div>
+      <div><span>210</span>Curtidas</div>
+    </div>
+
+    <!-- Botões -->
+    <div class="botoes-acao">
+      <button onclick="alert('em breve')">Patrocine</button>
+      <button onclick="window.location.href='publicar.html'">Curtir</button>
+      <button onclick="window.location.href='logout.php'">Seguir</button>
+    </div>
+  </main>
+
+<!-- feed inferior -->
+ 
+  <!-- Navegação inferior -->
+  <div class="bottom-nav">
+    
+     <a href="../../index.html" style="text-decoration: none;">
+    <button onclick="window.location.href='index.html'">🏠 Feed</button>
+       </a>
+       <button onclick="alert('Buscar em construção')">🔍 Buscar</button>
+    <button onclick="window.location.href='publicar.html'">➕ Publicar</button>
+    <button onclick="window.location.href='carteira.html'">💳 Carteira</button>
+    <button onclick="window.location.href='perfil.html'">👤 Perfil</button>
+  </div>
+
+   <!-- edicao de bio  -->
+  
+  <script>
+  document.getElementById("edit-bio").addEventListener("click", function () {
+    const bioContainer = document.getElementById("bio-container");
+    const currentBio = document.getElementById("bio-text").textContent;
+
+    // Substituir texto por input
+    bioContainer.innerHTML = `
+      <input type="text" id="bio-input" value="${currentBio}" style="padding: 4px 8px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; width: 100%;">
+      <button id="save-bio" style="margin-left: 8px; background: #9333ea; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer;">Salvar</button>
+    `;
+
+    // Adicionar evento para salvar
+    document.getElementById("save-bio").addEventListener("click", function () {
+      const newBio = document.getElementById("bio-input").value;
+      bioContainer.innerHTML = `
+        <span id="bio-text">${newBio}</span>
+        <button id="edit-bio" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✏️</button>
+      `;
+      // Reanexar o evento de clique ao novo botão
+      document.getElementById("edit-bio").addEventListener("click", arguments.callee);
+    });
+  });
+</script>
+  
+    <!-- publicidade - animacao -->
+  
+  <script>
+  const mensagens = [
+    '🎨 Apoie artistas locais! <strong>Refugiart Bazar</strong>',
+    '🖌️ Patrocine um artista hoje! <strong> </strong>',
+    '🌍 Junte-se à rede cultural da Transamazônica! <strong>Refugiart</strong>',
+    '💡 Descubra talentos regionais agora mesmo!'
+  ];
+
+  let index = 0;
+  const bannerText = document.getElementById("banner-text");
+
+  setInterval(() => {
+    index = (index + 1) % mensagens.length;
+    bannerText.style.opacity = 0;
+
+    setTimeout(() => {
+      bannerText.innerHTML = mensagens[index];
+      bannerText.style.opacity = 1;
+    }, 500);
+  }, 3000);
+</script>
+  
+</body>
+</html>
